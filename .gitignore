@@ -9,5 +9,6 @@ wheels/
 # Virtual environments
 .venv
 
-# Notebook files
-\notebooks
+# Cache folders
+\__marimo__
+\__pycache__
