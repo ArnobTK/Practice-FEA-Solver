@@ -7,8 +7,7 @@ app = marimo.App()
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Example 2.1
-    From *A First Course in the Finite Element Method* by Logan
+    # 1D Spring Finite Element Solver
     """)
     return
 
@@ -28,6 +27,8 @@ def _(mo):
 
     Suppose a user has a 1D finite element spring problem with $n$ nodes (for 1D problems, that means $n + 1$ elements).
     - `conn_matrix`: A
+
+    From *A First Course in the Finite Element Method* by Logan
     """)
     return
 
