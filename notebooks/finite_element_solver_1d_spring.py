@@ -7,7 +7,7 @@ app = marimo.App()
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # 1D Spring Finite Element Solver
+    # Finite Element Solver - 1D Spring
     """)
     return
 
@@ -39,7 +39,6 @@ def _(np):
     ke_list = np.array([1000, 2000, 3000])
     bc_dict = [(0, 0), (1, 0)]
     f_applied_list = [(3, 5000)]
-
     return conn_matrix, ke_list
 
 
@@ -118,7 +117,6 @@ def _(NDArray, np):
 @app.cell
 def _(assemble_global_stiffness_matrix_1d, conn_matrix, ke_list):
     K = assemble_global_stiffness_matrix_1d(ke_list=ke_list, conn_matrix=conn_matrix)
-
     return (K,)
 
 
