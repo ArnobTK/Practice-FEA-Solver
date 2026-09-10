@@ -7,7 +7,15 @@ app = marimo.App()
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    # Finite Element Solver - 1D Spring
+    # Notebook 1 - Solving 1D Bar Finite Element Problems
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    ## Imports
     """)
     return
 
@@ -25,8 +33,18 @@ def _(mo):
     mo.md(r"""
     ## Problem Definition
 
-    Suppose a user has a 1D finite element spring problem with $n$ nodes (for 1D problems, that means $n + 1$ elements).
-    - `conn_matrix`: A
+
+
+    Suppose a user has a 1D bar finite element problem they want to solve that has $n$ elements (for 1D problems, that necessarily means $n + 1$ nodes). Solving this problem through the finite element method requires that the following be defined:
+
+
+    | Variable                          | Variable Name    | Description                                                                                                                                                |
+    | --------------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+    | Array of node coordinates         | `node_coords`    | An array where each array element is a coordinate tuple. The array index of each coordinate tuple corresponds with the numbering of a particular node.     |
+    | Connectivity matrix               | `conn_matrix`    | A matrix where each column represents the nodes that make up a particular finite element. The number of columns is equal to the number of finite elements. |
+    | Young's modulus array             | `E_array`        | An array where each array element                                                                                                                          |
+    | Displacement boundary conditions  | `bc_dict`        | A dictionary containing known nodal displacements, where the key is the node number and the value is that node's displacement.                             |
+    | Applied force boundary conditions | `f_applied_dict` | A dictionary containing known applied (i.e. external) nodal forces, where the key is the node number and the value is the node's applied force             |
 
     From *A First Course in the Finite Element Method* by Logan
     """)
@@ -35,11 +53,16 @@ def _(mo):
 
 @app.cell
 def _(np):
-    conn_matrix = np.array([[0, 2, 3], [2, 3, 1]])
-    ke_list = np.array([1000, 2000, 3000])
-    bc_dict = [(0, 0), (1, 0)]
-    f_applied_list = [(3, 5000)]
-    return conn_matrix, ke_list
+    conn_matrix = np.array([[0, 1], [1, 2]])
+    ke = np.float64(21e9*4e-4/2)
+    bc_dict = {
+        0: 0,
+        2: 25/1000 
+    }
+    f_applied_list = {
+        1: -10000
+    }
+    return (conn_matrix,)
 
 
 @app.cell(hide_code=True)
@@ -117,14 +140,6 @@ def _(NDArray, np):
 @app.cell
 def _(assemble_global_stiffness_matrix_1d, conn_matrix, ke_list):
     K = assemble_global_stiffness_matrix_1d(ke_list=ke_list, conn_matrix=conn_matrix)
-    return (K,)
-
-
-@app.cell
-def _(K, np):
-    test = np.arange(100).reshape((10, 10))
-    with np.printoptions(linewidth=100):
-        print("\n", K)
     return
 
 
