@@ -12,3 +12,9 @@ wheels/
 # Cache folders
 \__marimo__
 \__pycache__
+
+# Notebooks
+\notebooks
+
+# Gmsh examples
+\gmsh_examples
