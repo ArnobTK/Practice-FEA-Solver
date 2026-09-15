@@ -13,4 +13,8 @@ wheels/
 \__marimo__
 \__pycache__
 
-*.py
+# Notebooks
+\notebooks
+
+# Gmsh examples
+\gmsh_examples
